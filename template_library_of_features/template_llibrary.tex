@@ -1,0 +1,104 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{gensymb}				% degree symbol
+\usepackage{amsthm}
+\usepackage{booktabs}				% allows toprule and bottomrule in tables
+\usepackage{tabularx}
+\usepackage{multirow}				% data spans multiple rows and columns in tables
+\usepackage[makeroom]{cancel}		% e.g. \cancelto{\infty}{5y}
+\usepackage{caption}
+\usepackage{setspace}
+
+\usepackage{color}
+\newcommand{\edit}{\textcolor{red}}      % highlight text red for editing purposes.
+
+\providecommand{\e}[1]{\ensuremath{\times 10^{#1}}} 		% Scientific notation, e.g.: 6.653 \e{-24}
+
+
+\usepackage{lscape}
+
+\usepackage{fancyheadings}			% customizable headers and footers
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage \, of \pageref{LastPage}}
+
+\makeatletter         
+\def\@maketitle{   					% custom maketitle 
+\begin{center} \Large \bfseries \@title \end{center}
+\begin{flushleft} \@author \\ \@date \end{flushleft} \par 
+\smallskip \hrule}
+
+\setcounter{secnumdepth}{4}                     % Only number sections, nothing deeper
+
+\title{Personal Library of LaTeX Code \\ } 
+\author{Author: John Hayes}
+\date{Updated: Tue 8/18/15}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+\doublespacing
+%
+
+\section{Section Header}
+\subsection{Subsection Header}
+\subsubsection{Subsubsection Header}
+\paragraph{Paragraph} 
+
+Label subequations as (1a, 1b ...)
+%
+\begin{subequations} \label{eqn:Pvalues}
+\begin{align} 
+P_c &= 5 \, \text{mSv/yr} = 0.1 \, \text{mSv/wk}  \\
+P_u &= 1 \, \text{mSv/yr} = 0.02 \, \text{mSv/wk}.
+\end{align} 
+\end{subequations}
+%
+Scientific notation in math type $4.997\e{9}$ and in text 3.545\e{7}  
+
+\edit{Highlight text red for editing purposes.} \\
+
+%%%%%%%%%%%%%%%%%
+\begin{table}[h!]
+\centering
+\caption{A sample table with caption above.}
+\label{tab:shieldingParams}
+\begin{tabular}{|l|c|c|l|}
+\hline
+Parameter  & Value & Unit & Description \\
+\hline 
+$d_{pri}$ & 6.71 $\pm$ 0.01 & m & distance from source to 1 m past the primary barrier \\ \hline
+$d_{sec}$ & 4.88 $\pm$ 0.01 & m & distance from source to 1 m past the secondary barrier \\ \hline
+$d_{sca}$ & 1.0 $\pm$ 0.01 & m & distance from source to phantom \\ \hline
+$\dot{X}_U$ & 2458 $\pm$ 4 & R/hr & unattenuated exposure rate 1 m from the source \\ \hline
+$\dot{X}_S$ & 1520  $\pm$ 100 & mR/hr & scattered exposure rate 1 m from patient surface \\ \hline
+$\dot{X}_L$ & 1800 $\pm$ 300 & $\mu$R/hr & exposure rate due to leakage 1 m from the source \\ \hline
+$S_p$ & \textit{to be determined} & m & thickness of primary barrier \\ \hline
+$S_s$ & \textit{to be determined} & m & thickness of secondary barrier \\ 
+\hline
+\end{tabular}
+\end{table}
+%%%%%%%%%%%%%%%%%
+%
+
+
+A reference in the text \cite{NCRP151}.  Reference 2 is not cited in the text but appears in the reference section.
+
+\nocite{NCRP49}
+\bibliographystyle{plain}
+\bibliography{bibliography}
+
+
+
+\end{document}
