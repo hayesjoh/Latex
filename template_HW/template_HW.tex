@@ -1,0 +1,181 @@
+\documentclass[11pt, oneside]{article}   	% use "amsart" instead of "article" for AMSLaTeX format
+\usepackage{geometry}                		% See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   		% ... or a4paper or a5paper or ... 
+%\geometry{landscape}                		% Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    		% Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}				% Use pdf, png, jpg, or eps§ with pdflatex; use eps in DVI mode
+								% TeX will automatically convert eps --> pdf in pdflatex		
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[makeroom]{cancel}		% e.g. \cancelto{\infty}{5y}
+
+\usepackage{fancyheadings}			% customizable headers and footers
+\usepackage{lastpage}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{\thepage \, of \pageref{LastPage}}
+
+\makeatletter         
+\def\@maketitle{   					% custom maketitle 
+\noindent {\Large \bfseries \@title}
+\begin{flushright} \@author \\ \@date \end{flushright} \par 
+\smallskip \hrule}
+
+\setcounter{secnumdepth}{1}                     % Only number sections, nothing deeper
+
+\title{573 HW 8} 
+\author{John Hayes}
+\date{Due 11/17/14}							% Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+%
+\section{} % Prob 1
+%
+\begin{equation}
+z = \frac{x + y}{2} 
+\end{equation}
+%
+The definition of variance is
+\begin{align}
+Var(z) &= \, \, <(z(x,y) - \overline{z(x,y)})^2>  \\
+&= \overline{z(x,y)^2} - \overline{z(x,y)}^2 \label{equ:varZ}
+\end{align}
+Whenever the function $f$ is a linear combination of its arguments, the following is true:
+\begin{equation}\label{equ:avg}
+ \overline{f(x_1,x_2, ..., x_n)} = f(\bar{x_1}, \bar{x_2}, ..., \bar{x_n})
+\end{equation}
+Therefore, since $z$ is a linear combination of $x$ and $y$, we have:
+\[ \overline{z(x,y)} = z(\bar{x}, \bar{y}) \]
+and the second term in Eqn. \eqref{equ:varZ} is
+\[ \left(\frac{\bar{x} + \bar{y}}{2} \right)^2 = \frac{\bar{x}^2 + 2 \bar{x}\bar{y} + \bar{y}^2}{4}. \]
+The first term in Eqn. \eqref{equ:varZ} is
+\[ < \left(\frac{x + y}{2}\right)^2 > \, \, = \, \, < \frac{x^2 + 2xy+ y^2}{4} > = \frac{\overline{x^2} + 2\overline{xy}+ \overline{y^2}}{4} \]
+since Eqn. \eqref{equ:avg} allows us to put bars over whole terms that are in a linear combination.  Combining both terms and rearranging gives
+\begin{equation}\label{equ:varZfinal}
+Var(z) = \frac{\left(\overline{x^2} -  \bar{x}^2 \right)}{4} + \frac{\left(\overline{y^2} -  \bar{y}^2 \right)}{4} + \frac{\left(\overline{xy} -  \bar{x}\bar{y} \right)}{2}. 
+\end{equation}
+%
+This is an exact expression.  Additionally, since all the second order and higher derivatives of $z$ are zero, the propagation of error formula on page 2 of Lecture 28 provides the same exact equation.  That equation is
+%
+{\small
+\begin{equation}\label{equ:properror}
+\begin{aligned}
+<(z(x,y) - z(\bar{x}, \bar{y}))^2> \, \, = \, \, &< (x- \bar{x})^2 > \left( \frac{\partial z(x,y)}{\partial x} \Bigg\rvert_{x,y=\bar{x},\bar{y}} \right)^2 + < (y- \bar{y})^2 > \left( \frac{\partial z(x,y)}{\partial y} \Bigg\rvert_{x,y=\bar{x},\bar{y}} \right)^2 \\
+&+ 2 < (x- \bar{x})>< (y- \bar{y})> \frac{\partial z(x,y)}{\partial x} \Bigg\rvert_{x,y=\bar{x},\bar{y}} \frac{\partial z(x,y)}{\partial y} \Bigg\rvert_{x,y=\bar{x},\bar{y}} 
+\end{aligned}
+\end{equation}}
+
+\newpage
+\section{} % Prob 2
+%
+We care to know what the convolution of two $tri$ functions is evaluated at zero.  Let $a$ be the defining parameter for the shorter, wider triangle and $b$ define the taller, skinnier triangle.  We are looking for the area under the product of the two functions. 
+
+\noindent By symmetry, it is just twice the area under the product of the two lines in the range $[0, b]$:
+\begin{align*}
+g(x) &= \frac{1}{a} tri(x/a) * \frac{1}{b} tri(x/b) \\
+g(0) &= 2 \int_{0}^{b} \frac{1}{a} (1-\frac{x}{a}) \cdot \frac{1}{b} (1-\frac{x}{b}) dx \\
+&= \frac{2}{ab} \int_{0}^{b} (1-\frac{a+b}{ab} x + \frac{1}{ab} x^2) dx \\
+&= \frac{2}{ab} \left(x-\frac{a+b}{2ab} x^2 + \frac{1}{3ab} x^3 \right)\Bigg\rvert_0^b \\
+& = \frac{3a-b}{3a^2}
+\end{align*}
+If $a= b = 5$, then $g(0) = 2/15.$  This is larger than a reduction of the variance by $\frac{1}{25}$ that might be expected.  However, the first smoothing of the noise had the effect of reducing the variance by turning it into spatial covariance.  When it was smoothed again some of the variance was again turned into covariance, but not at the same proportion.  In other words, the auto covariance function was convolved a second time with a narrow smoothing aperture, which does not have as large an effect as convolving the first time.
+
+\newpage
+\section{Part a} % Prob 3
+%
+The noise is white noise, so the power spectrum is flat and it's equal to the variance:
+\[S(\xi) = \sigma_n^2 \]
+The auto covariance is its inverse FT:
+\[R(x) = \sigma_n^2 \delta(x) \]
+After smoothing, the new power spectrum is 
+\[S'(\xi) = S(\xi) P^2(\xi) = A \exp(-\pi a^2 \xi^2) \]
+thus 
+\[ P^2(\xi) = \frac{A}{\sigma_n^2} \exp(-\pi a^2 \xi^2)  \]
+The smoothing aperture in frequency space is even so it is even in the spatial domain too.  Then the following relationships can be written with only convolutions with no need for correlations:
+\begin{align*}
+S'(\xi) &= FT\{R'\} \\
+ &= FT\{R* p(x) * p(x)\} \\ 
+ &= FT\{ R\} \cdot FT\{p(x) * p(x)\} 
+\end{align*}
+Now we see the aperture relationships
+\begin{align*}
+P^2(\xi) = FT\{p(x) * p(x)\} &=  \frac{A}{\sigma_n^2} \exp(-\pi a^2 \xi^2)  \\
+p(x) * p(x) &= \frac{A}{\sigma_n^2 a} \exp(-\pi \frac{x^2}{a^2}) \\
+P(\xi) = FT\{p(x)\} &=  \sqrt{\frac{A}{\sigma_n^2}} \exp(-\pi (a/\sqrt{2})^2 \xi^2)  \\
+p(x) &= \frac{\sqrt{2}}{a}\sqrt{\frac{A}{\sigma_n^2}} \exp(-\pi \frac{x^2}{(a/\sqrt{2})^2}) \\
+\end{align*}
+Thus the shape of the convolving aperture is Gaussian. \\ \\
+%
+\noindent \textbf{Part b} \\
+The aperture $p(x)$ is also normalized.  It's been shown that the convolution of two normalized functions is itself normalized, thus:
+\begin{align*}
+\int_{-\infty}^{\infty} (p(x) * p(x)) dx &= 1 \\
+\int_{-\infty}^{\infty} \frac{A}{\sigma_n^2 a} \exp(-\pi \frac{x^2}{a^2}) dx &= 1 \\
+\frac{A}{\sigma_n^2 a} \int_{-\infty}^{\infty} \exp(-\pi \frac{x^2}{a^2}) dx &= 1 \\
+\frac{A}{\sigma_n^2 a} \cdot a &=1 \\
+\sigma_n^2 &= A
+\end{align*}
+The original variance is A.  Therefore, 
+\[R = A \delta(x) \]
+and
+\begin{align*}
+R' &= R * p(x) * p(x) \\
+&= A \delta(x) * \frac{1}{a} \exp(-\pi \frac{x^2}{a^2}) \\
+&= \frac{A}{a} \exp(-\pi \frac{x^2}{a^2})
+\end{align*}
+The variance is the autocovariance at a separation of 0, therefore the new, smoothed variance is $A/a.$ \\ \\
+%
+\noindent \textbf{Part c} \\
+Two points will have a covariance equal to 1\% of the variance when $R'$ drops to 1\% of it's initial value.
+\begin{align*}
+\exp(-\pi \frac{x^2}{a^2}) &= 0.01 \\
+x^2 &= a^2 \frac{\ln (100)}{\pi} \\
+x &\approx 1.21a
+\end{align*}
+Points more than 24.21 mm away from each other will have covariances less than 0.05 (1\% of the variance $A/a = 5$).
+%
+\newpage
+\section{Part a} % Prob 4
+The noise is white noise, so the power spectrum is flat and it's equal to the variance:
+\[S(\xi) = \sigma_n^2 \]
+After smoothing, the new power spectrum is 
+\begin{align*}
+S'(\xi) &= S(\xi) P^2(\xi)  \\
+&= S(\xi) \left(FT\{p(x)\}\right)^2 \\
+&= S(\xi) \left(rect(a\xi)\right) ^2 \\
+&= \sigma_n^2 \, \, rect(a\xi) \\
+&= \left\{ 
+\begin{array}{lr} 
+\sigma_n^2 &: -1/a < \xi < 1/a \\ 
+\quad 0 &: otherwise 
+\end{array} 
+\right.
+\end{align*}
+The last two equalities actually fail on the edges of the rect function, but that has negligible practical consequences. \\ \\
+%
+\noindent \textbf{Part b} \\
+\begin{align*}
+R' &= FT^{-1}\{S' \} \\
+&= FT^{-1}\{\sigma_n^2 \, \, rect(a\xi) \} \\
+&= \frac{\sigma_n^2}{a} \text{sinc}(x/a) \\
+\end{align*}
+The new variance is thus $\sigma_n^2/a$.
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
