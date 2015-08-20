@@ -12,13 +12,13 @@
 \usepackage{booktabs}				% allows toprule and bottomrule in tables
 \usepackage{tabularx}
 \usepackage{multirow}				% data spans multiple rows and columns in tables
-\usepackage[makeroom]{cancel}		% e.g. \cancelto{\infty}{5y}
 \usepackage{caption}
 \usepackage{setspace}
 
 \usepackage{color}
 \newcommand{\edit}{\textcolor{red}}      % highlight text red for editing purposes.
 
+\usepackage[makeroom]{cancel}						% Notation for canceling terms:
 \providecommand{\e}[1]{\ensuremath{\times 10^{#1}}} 		% Scientific notation, e.g.: 6.653 \e{-24}
 
 
@@ -92,7 +92,27 @@ $S_s$ & \textit{to be determined} & m & thickness of secondary barrier \\
 %%%%%%%%%%%%%%%%%
 %
 
+\clearpage
 
+\noindent The following are examples of canceling terms. \\ \\
+\verb|\cancel{5y}|:
+\[ x+\cancel{5y}=0\]
+\verb|\bcancel{5y}|:
+\[ x+\bcancel{5y}=0\]
+\verb|\xcancel{5y}|:
+\[ x+\xcancel{5y}=0\]
+\verb|\cancelto{\infty}{5y}|:
+\[ x+\cancelto{\infty}{5y}=0\]
+\verb|\cancelto{0}{5y}|:
+\[ x+\cancelto{0}{5y}=0\]
+\verb|\cancelto{}{5y}|:
+\[ x+\cancelto{}{5y}=0\] \\
+
+\noindent The first three commands work in text mode also i.e., \cancel{5y}, \bcancel{5y} and 
+\xcancel{5y}.  But \verb|\cancelto{\infty}{5y}| and other `cancelto' forms do not. 
+
+
+\clearpage
 A reference in the text \cite{NCRP151}.  Reference 2 is not cited in the text but appears in the reference section.
 
 \nocite{NCRP49}
